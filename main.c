@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef enum {
+    INTEGER,
+    CHARACTER,
+    BOOL,
+    FLOAT,
+    DOUBLE,
+    STRING,
+} Types;
+
+
 typedef struct {
     void* start;
     size_t size;
@@ -10,15 +20,43 @@ typedef struct {
 } DArray;
 
 
-void da_print(DArray *array) {
-    int* start = array->start;
-    
+void da_print(DArray *array, Types type) {
+    void* start = array->start;
+    /*INTEGER,*/
+    /*CHARACTER,*/
+    /*BOOL,*/
+    /*FLOAT,*/
+    /*DOUBLE,*/
+    /*STRING,*/
+
     for (size_t i=0; i<array->length; ++i) {
-        printf("%d", *start);
-        start++;
+        switch (type) {
+            case INTEGER:
+                printf("%d", (*(int *) start)++);
+                break;
+            case CHARACTER:
+                printf("%c", (*(char *) start)++);
+                break;
+            case BOOL:
+                printf("%d", (*(int *) start)++);
+                break;
+            case FLOAT:
+                printf("%f", (*(float *) start)++);
+                break;
+            case DOUBLE:
+                printf("%lf", (*(double *) start)++);
+                break;
+            case STRING:
+                printf("%s", (char *) start);
+                char *start = (char *)start;
+                start++;
+                break;
+        }
+        printf("%s", (i == array->length-1)? "\n" : ", ");
     }
 }
 
+#define ELEMENT(elem) ((typeof(elem)[]){elem})
 void da_append(DArray *da_array, void* element) {
     if (da_array->length + 1 < da_array->capacity) {
         void* ptr = (char *)da_array->start  + (da_array->length * da_array->size);
@@ -57,12 +95,13 @@ DArray da_alloc(size_t initial_capacity, size_t size) {
 }
 
 int main(void) {
-    DArray array = da_alloc(3); 
-    da_append(&array, 1);
-    da_append(&array, 2);
-    da_append(&array, 3);
+    DArray array = da_alloc(3, sizeof(int)); 
+    da_append(&array, ELEMENT(1));
+    da_append(&array, ELEMENT(2));
+    da_append(&array, ELEMENT(3));
+    da_append(&array, ELEMENT(4));
 
-    da_print(&array);
+    da_print(&array, INTEGER);
 
     return 0;
 } 
