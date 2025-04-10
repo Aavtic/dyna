@@ -1,5 +1,5 @@
 compile: main.c
-	gcc -ggdb -o main main.c
+	gcc -Werror -Wall -Wextra -pedantic -ggdb -o main main.c
 
 run: main
 	./main
