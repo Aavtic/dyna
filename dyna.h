@@ -13,10 +13,10 @@ typedef enum {
 } Types;
 
 typedef struct {
-    void* start;
-    size_t size;
-    size_t length;
-    size_t capacity;
+    void* start;      // starting address of the array
+    size_t size;      // size of a single element
+    size_t length;    // number of elements currently stored
+    size_t capacity;  // maximum number of elements able to be stored
 } DArray;
 
 
