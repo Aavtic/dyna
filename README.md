@@ -3,11 +3,11 @@
 generic dynamic array in C supporting various data types such as int, char, float, and char* (strings).
 (Header Only btw).
 
-Features
-    1. - Dynamically resizes on demand
-    2. - Type-safe via macro-based initialization
-    3. - Supports any data type
-    4. - Easy printing with format specifiers
+## Features
+* Dynamically resizes on demand
+* Type-safe via macro-based initialization
+* Supports any data type
+* Easy printing with format specifiers
 
 ## Usage
 
