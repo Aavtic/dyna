@@ -1,6 +1,7 @@
 # Dyna
 
 generic dynamic array in C supporting various data types such as int, char, float, and char* (strings).
+(Header Only btw).
 
 Features
     1. - Dynamically resizes on demand
