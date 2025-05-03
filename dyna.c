@@ -5,7 +5,8 @@
 
 #define PRINT_ALL(format, typecast) for (size_t i = 0; i<d_array->length; ++i) {\
                                                     printf(format, ((typecast *)d_array->start)[i]);\
-                                                    printf("%s", (i == d_array->length-1)? "\n" : ", ");}
+                                                    printf("%s", (i == d_array->length-1)? "]\n" : ", ");}
+
 void da_print(DArray *d_array, Types type) {
     /*INTEGER,*/
     /*CHARACTER,*/
@@ -14,12 +15,14 @@ void da_print(DArray *d_array, Types type) {
     /*DOUBLE,*/
     /*STRING,*/
 
+    printf("[");
+
     switch (type) {
         case INTEGER:
             PRINT_ALL("%d",  int);
             break;
         case CHARACTER:
-            PRINT_ALL("%c",  char);
+            PRINT_ALL("'%c'",  char);
             break;
         case BOOL:
             PRINT_ALL("%d",  int);
@@ -31,11 +34,22 @@ void da_print(DArray *d_array, Types type) {
             PRINT_ALL("%lf",  double);
             break;
         case STRING:
-            PRINT_ALL("%s",  char*);
+            PRINT_ALL("\"%s\"",  char*);
             break;
     }
-
 }
+
+// CONCEPT NOT YET IMPLEMENTED
+// DYNAMIC POOLING
+// Create a pool to store dynamic structs or objects whose size is not known at 
+// compile time this also includes strings.
+//
+// A dynamic pool is created for each instance of a DArray(Dyna)
+// At creation of a DArray object a dyna 
+//
+//
+// PROBLEM
+// String -> unknown sizes
 
 
 void da_append(DArray *da_array, void* element) {
@@ -46,7 +60,7 @@ void da_append(DArray *da_array, void* element) {
     } else {
         // Incase capacity is 0 for some reason
         size_t new_capacity = (da_array->capacity + 1) * 2;
-        int* new_start = reallocarray(da_array->start, new_capacity, da_array->size);
+        void* new_start = reallocarray(da_array->start, new_capacity, da_array->size);
         /*int* new_start = realloc(da_array->start, new_capacity);*/
         if (new_start == NULL){
             fprintf(stderr, "ERROR: Can't allocate memory for array\nBuy More Ram please");
